@@ -1,6 +1,7 @@
 package com.github.osipovvj.bank_rest_test_task.entity;
 
 import com.github.osipovvj.bank_rest_test_task.enums.CardStatus;
+import com.github.osipovvj.bank_rest_test_task.util.YearMonthConverter;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,6 +13,7 @@ import java.time.YearMonth;
 import java.util.UUID;
 
 @Entity
+@Table(name = "cards")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -27,7 +29,15 @@ public class Card {
     @Column(nullable = false, unique = true)
     private String cardNumber;
 
+    @Transient
+    private String maskedCardNumber;
+
     @Column(nullable = false)
+    @Convert(converter = YearMonthConverter.class)
+    private YearMonth issueDate;
+
+    @Column(nullable = false)
+    @Convert(converter = YearMonthConverter.class)
     private YearMonth expirationDate;
 
     @Column(nullable = false)

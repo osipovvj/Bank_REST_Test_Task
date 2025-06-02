@@ -41,6 +41,9 @@
             <column name="card_number" type="VARCHAR(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
+            <column name="issue_date" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
             <column name="expiration_date" type="VARCHAR(7)">
                 <constraints nullable="false"/>
             </column>

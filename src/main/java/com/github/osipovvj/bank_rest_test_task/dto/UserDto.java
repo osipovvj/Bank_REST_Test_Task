@@ -4,7 +4,6 @@ import com.github.osipovvj.bank_rest_test_task.entity.User;
 import com.github.osipovvj.bank_rest_test_task.enums.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Schema(name = "UserDto", description = "Ответ сервера с информацией о пользователе.")
@@ -22,23 +21,15 @@ public record UserDto(
         String email,
 
         @Schema(description = "Роль пользователя в системе.", example = "ROLE_USER")
-        Role role,
-
-        @Schema(description = "Дата и время регистрации пользователя.", example = "2025-05-07T23:18:16")
-        LocalDateTime createdAt,
-
-        @Schema(description = "Дата и время изменения данных пользователя.", example = "2025-05-07T23:18:16")
-        LocalDateTime updatedAt
+        Role role
 ) {
-    public static UserDto toDto(User user) {
+    public static UserDto toDto(final User user) {
         return new UserDto(
                 user.getId(),
                 user.getFirstName(),
                 user.getLastName(),
                 user.getEmail(),
-                user.getRole(),
-                user.getCreatedAt(),
-                user.getUpdatedAt()
+                user.getRole()
         );
     }
 }

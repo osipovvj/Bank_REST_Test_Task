@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("Пользоваетль с ID " + id + " не найден."));
 
         if (!user.getEmail().equals(request.email())) {
-            if (userRepository.existsByEmailAndIdNot(user.getEmail(), id)) {
+            if (userRepository.existsByEmailAndIdNot(request.email(), id)) {
                 throw new AlreadyExistsException("Пользователь с email " + request.email() + " уже зарегестрирован.");
             } else {
                 user.setEmail(request.email());

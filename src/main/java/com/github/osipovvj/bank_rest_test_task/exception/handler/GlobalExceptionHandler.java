@@ -1,6 +1,8 @@
 package com.github.osipovvj.bank_rest_test_task.exception.handler;
 
 import com.github.osipovvj.bank_rest_test_task.exception.AlreadyExistsException;
+import com.github.osipovvj.bank_rest_test_task.exception.InsufficientFundsOnCardException;
+import com.github.osipovvj.bank_rest_test_task.exception.InternalServerException;
 import com.github.osipovvj.bank_rest_test_task.exception.ResourceNotFoundException;
 import com.github.osipovvj.bank_rest_test_task.exception.dto.ProblemDetailResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -70,6 +72,40 @@ public class GlobalExceptionHandler {
                 "/error/already-exists",
                 "Already Exists Error",
                 HttpStatus.CONFLICT.value(),
+                exception.getMessage(),
+                request.getRequestURI(),
+                null
+        );
+    }
+
+    @ExceptionHandler(InsufficientFundsOnCardException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ProblemDetailResponse handleInsufficientFundsOnCardException(
+            InsufficientFundsOnCardException exception,
+            HttpServletRequest request
+    ) {
+        return new ProblemDetailResponse(
+                LocalDateTime.now(),
+                "/error/insufficient-funds-on-card",
+                "Insufficient Funds Exists Error",
+                HttpStatus.CONFLICT.value(),
+                exception.getMessage(),
+                request.getRequestURI(),
+                null
+        );
+    }
+
+    @ExceptionHandler(InternalServerException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ProblemDetailResponse handleInternalServerException(
+            InternalServerException exception,
+            HttpServletRequest request
+    ) {
+        return new ProblemDetailResponse(
+                LocalDateTime.now(),
+                "/error/internal-server-error",
+                "Internal Server Error",
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 exception.getMessage(),
                 request.getRequestURI(),
                 null
